@@ -128,14 +128,13 @@ def scoreUpdatesCurve(points, k, histCluster, histClusterName, clusterAlgo, seed
 ################################
 seed = 2026
 epsilon = 0.25  # rStar step
-bepsilon = 2  # budget step
+bepsilon = 1.33  # budget step
 algos = [
     "Chakraborty",
     "greedyAndProject",
     "Resilient",
-    # "Carv",
-    # "OverCover",
-    # "greedyAndProject",
+    "Carv",
+    "OverCover",
 ]  # Algorithms to run
 args = parser.parse_args()
 hist = args.historical
