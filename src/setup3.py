@@ -7,6 +7,7 @@ from algorithms.carv import *
 from algorithms.resilientkclustering import *
 from algorithms.greedyAndProject import *
 from algorithms.overCover import *
+from algorithms.Chakraborty import *
 import argparse
 
 # Instantiate the parser
@@ -67,7 +68,7 @@ def findBestRstarAndClustering(points, k, Bs, rStars, hC, lC, clusterAlgo, seed)
 
 def scoreUpdatesCurve(points, k, histCluster, histClusterName, clusterAlgo, seed):
     hC, lh = histCluster
-    ourAlgos = ["greedyAndProject", "OverCover", "Carv"]
+    ourAlgos = ["greedyAndProject", "OverCover", "Carv", "Chakraborty"]
     clusterCenters, clusterAssign = [], []
     n = len(points)
     b = int(n / 200)

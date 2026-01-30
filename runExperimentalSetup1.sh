@@ -1,11 +1,10 @@
 #!/bin/bash
 #declare -a historicals=("Resilient" "Carv" "FFT")
-declare -a historicals=("Carv")
-#declare -a datasets=("Uber" "Twitter" "Abalone" "OnlineRetail" "Electricity")
-declare -a datasets=("OnlineRetail")
+#declare -a historicals=("Carv")
+declare -a datasets=("Uber" "Twitter" "Abalone" "OnlineRetail" "Electricity")
+#declare -a datasets=("OnlineRetail")
 # "OnlineRetail" "Electricity")
-declare -a ks=(20)
-# 20 50)
+declare -a ks=(10 20 50)
 
 for k in "${ks[@]}"
 do

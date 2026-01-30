@@ -1,8 +1,8 @@
 #!/bin/bash
 declare -a historicals=("Resilient" "Carv" "FFT")
-#declare -a datasets=("Uber" "Twitter" "OnlineRetail" "Electricity")
+declare -a datasets=("Uber" "Twitter" "OnlineRetail" "Electricity")
 #Uber and Twitter need to be installed manually.
-declare -a datasets=("OnlineRetail" "Electricity")
+#declare -a datasets=("OnlineRetail" "Electricity")
 declare -a ks=(30)
 
 for k in "${ks[@]}"
