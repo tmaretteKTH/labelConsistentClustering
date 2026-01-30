@@ -9,6 +9,7 @@ from algorithms.greedyAndProject import *
 from algorithms.overCover import *
 from algorithms.Chakraborty import *
 import argparse
+from callAlgorithm import *
 
 # Instantiate the parser
 parser = argparse.ArgumentParser()
@@ -25,50 +26,6 @@ parser.add_argument(
     help="Clustering algorithm for historical clustering, can be: 'FFT', 'Carv' and 'Resilient'",
 )
 parser.add_argument("k", type=int, help="Number of centers opened")
-
-
-def createHistorical(points, alg, k):
-    if alg == "Random":
-        historicalCenters = randomClustering(points, k, seed)
-        historicalAssign = findClosestCenter(points, historicalCenters)
-    if alg == "FFT":
-        historicalCenters = FFT(points, k)
-        historicalAssign = findClosestCenter(points, historicalCenters)
-    if alg == "Carv":
-        historicalCenters = carv(points, k, seed, epsilon)
-        historicalAssign = findClosestCenter(points, historicalCenters)
-    if alg == "Resilient":
-        historicalCenters, historicalAssign = resilientkcenter(
-            points, k, 0.5, 1.1, 0.5, 0.5, seed
-        )
-
-    historicalCluster = (historicalCenters, historicalAssign)
-    return historicalCluster
-
-
-def findBestRstarAndClustering(points, k, Bs, rStars, hC, lC, clusterAlgo, seed):
-    score = clusteringScore(points, hC, lC) * 2
-    for rStar in rStars:
-        for b in Bs:
-            if clusterAlgo == "greedyAndProject":
-                clusterCenters, clusterAssign = greedyAndProject(
-                    points, k, b, hC, lC, rStar, seed
-                )
-            if clusterAlgo == "OverCover":
-                clusterCenters, clusterAssign = overCover(
-                    points, k, b, hC, lC, rStar, seed
-                )
-            if clusterAlgo == "Carv":
-                clusterCenters = Carvrstar(points, rStar, k, seed)
-                clusterAssign = findClosestCenter(points, clusterCenters)
-            newScore = clusteringScore(points, clusterCenters, clusterAssign)
-            if newScore < score:
-                score = newScore
-                bestCenters = clusterCenters
-                bestAssign = clusterAssign
-    clusterCenters = bestCenters
-    clusterAssign = bestAssign
-    return clusterCenters, clusterAssign
 
 
 def computeClustering(points, k, Bs, epsilon, hC, lC, clusterAlgo, seed):
@@ -106,6 +63,7 @@ algos = [
     hist,
     "greedyAndProject",
     "OverCover",
+    "Chakraborty",
 ]  # Algorithms to run
 timesteps = 20
 
@@ -129,7 +87,7 @@ for algo in algos:
         Bs = [2, 4, 6]
     pastBs = [0]
     X, nextDate, points = dataNext(n, X)
-    historicalClustering = createHistorical(points, hist, k)
+    historicalClustering = createHistorical(points, hist, k, epsilon, seed)
     historicalScore = clusteringScore(
         points, historicalClustering[0], historicalClustering[1]
     )
