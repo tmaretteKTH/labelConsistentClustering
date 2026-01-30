@@ -10,6 +10,7 @@ def abaloneCreateData():
     X = abalone.data.features
     X = X.drop("Sex", axis=1)
     X.to_csv("datasets/abalone.csv")
+    X.to_csv("datasets/abaloneNoIndex.csv", index=None, header=None)
 
 
 def electricityCreateData():
@@ -18,19 +19,22 @@ def electricityCreateData():
     firstMonth = (
         X[X.Date.str.contains("/12/2006")].drop("Date", axis=1).drop("Time", axis=1)
     )
-    X.to_csv("datasets/electricity.csv")
-    firstMonth.to_csv("datasets/electricityFirstMonth.csv")
+    X.drop("Date", axis=1).drop("Time", axis=1)
+    X.to_csv("datasets/electricity,csv")
+    X.to_csv("datasets/electricityNoIndex.csv", index=None, header=None)
+    firstMonth.to_csv("datasets/electricityFirstMonth.csv", index=None, header=None)
 
 
 def onlineRetailCreateData():
     online_retail = fetch_ucirepo(id=352)
     X = online_retail.data.features
-    X = X[["Quantity", "InvoiceDate", "UnitPrice"]]
-    firstDay = X[X.InvoiceDate.str.contains("12/(?:1|2)/2010")].drop(
-        "InvoiceDate", axis=1
-    )
     X.to_csv("datasets/onlineRetail.csv")
-    firstDay.to_csv("datasets/onlineRetailFirstDay.csv")
+    firstDay = X[X.InvoiceDate.str.contains("12/(?:1|2)/2010")][
+        ["Quantity", "UnitPrice"]
+    ]
+    firstDay.to_csv("datasets/onlineRetailFirstDay.csv")  ##
+    X = X[["Quantity", "UnitPrice"]]
+    X.to_csv("datasets/onlineRetailNoIndex.csv", index=None, header=None)
 
 
 def angularToCartesian(lat, long):
@@ -118,8 +122,8 @@ def match(n, m, W):
     return d
 
 
-print("Creating csv file for Abalone dataset...")
-abaloneCreateData()
+# print("Creating csv file for Abalone dataset...")
+# abaloneCreateData()
 print("Creating csv file for OnlineRetail dataset...")
 onlineRetailCreateData()
 print("Creating csv file for Electricity dataset...")

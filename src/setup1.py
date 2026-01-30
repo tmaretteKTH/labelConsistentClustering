@@ -7,6 +7,7 @@ from algorithms.carv import *
 from algorithms.resilientkclustering import *
 from algorithms.greedyAndProject import *
 from algorithms.overCover import *
+from algorithms.Chakraborty import *
 import argparse
 
 # Instantiate the parser
@@ -41,7 +42,6 @@ def createHistorical(points, alg, k, seed):
         historicalCenters, historicalAssign = resilientkcenter(
             points, k, 0.5, 1.1, 0.5, 0.5, seed
         )
-
     historicalCluster = (historicalCenters, historicalAssign)
     return historicalCluster
 
@@ -52,6 +52,10 @@ def findBestRstarAndClustering(points, k, Bs, rStars, hC, lC, clusterAlgo, seed)
     bestAssign = lC
     for rStar in rStars:
         for b in Bs:
+            if clusterAlgo == "Chakraborty":
+                clusterCenters, clusterAssign = Chakraborty(
+                    points, k, b, hC, lC, rStar, seed
+                )
             if clusterAlgo == "greedyAndProject":
                 clusterCenters, clusterAssign = greedyAndProject(
                     points, k, b, hC, lC, rStar, seed
@@ -75,7 +79,7 @@ def findBestRstarAndClustering(points, k, Bs, rStars, hC, lC, clusterAlgo, seed)
 
 def scoreUpdatesCurve(points, k, histCluster, histClusterName, clusterAlgo, seed):
     hC, lh = histCluster
-    ourAlgos = ["greedyAndProject", "OverCover", "Carv"]
+    ourAlgos = ["greedyAndProject", "OverCover", "Carv", "Chakraborty"]
     baselines = ["FFT", "Resilient", "Carv"]
     clusterCenters, clusterAssign = [], []
     n = len(points)
@@ -95,7 +99,6 @@ def scoreUpdatesCurve(points, k, histCluster, histClusterName, clusterAlgo, seed
     while b != n:
         if b > n:
             b = n
-
         if clusterAlgo in ourAlgos:
             clusterCenters, clusterAssign = findBestRstarAndClustering(
                 points, k, bestB + [b], rStars, hC, lh, clusterAlgo, seed
@@ -125,12 +128,14 @@ def scoreUpdatesCurve(points, k, histCluster, histClusterName, clusterAlgo, seed
 ################################
 seed = 2026
 epsilon = 0.25  # rStar step
-bepsilon = 1.33  # budget step
+bepsilon = 2  # budget step
 algos = [
-    "Resilient",
-    "Carv",
-    "OverCover",
+    "Chakraborty",
     "greedyAndProject",
+    "Resilient",
+    # "Carv",
+    # "OverCover",
+    # "greedyAndProject",
 ]  # Algorithms to run
 args = parser.parse_args()
 hist = args.historical
