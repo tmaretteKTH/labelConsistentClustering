@@ -3,7 +3,7 @@ from algorithms.carv import *
 from algorithms.resilientkclustering import *
 from algorithms.greedyAndProject import *
 from algorithms.overCover import *
-from src.algorithms.CFHLNS import *
+from algorithms.CFHLNS import *
 
 
 def createHistorical(points, alg, k, epsilon, seed):
