@@ -3,7 +3,7 @@ from algorithms.carv import *
 from algorithms.resilientkclustering import *
 from algorithms.greedyAndProject import *
 from algorithms.overCover import *
-from algorithms.Chakraborty import *
+from src.algorithms.CFHLNS import *
 
 
 def createHistorical(points, alg, k, epsilon, seed):
@@ -30,8 +30,8 @@ def findBestRstarAndClustering(points, k, Bs, rStars, hC, lC, clusterAlgo, seed)
     bestAssign = lC
     for rStar in rStars:
         for b in Bs:
-            if clusterAlgo == "Chakraborty":
-                clusterCenters, clusterAssign = Chakraborty(
+            if clusterAlgo == "CFHLNS":
+                clusterCenters, clusterAssign = CFHLNS(
                     points, k, b, hC, lC, rStar, seed
                 )
             if clusterAlgo == "greedyAndProject":

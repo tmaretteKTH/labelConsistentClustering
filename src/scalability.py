@@ -89,8 +89,8 @@ def computeClustering(points, k, Bs, epsilon, hC, lC, clusterAlgo, seed):
 seed = 2026
 epsilon = 0.5  # rStar step
 algos = [
-    "greedyAndProject",
-    "OverCover",
+    "CFHLNS",
+    # "OverCover",
 ]
 args = parser.parse_args()
 hist = "Carv"

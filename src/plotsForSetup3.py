@@ -3,37 +3,50 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 historicals = [
-    "Resilient",
     "Carv",
+    "Resilient",
 ]  # Historical clustering algorithm
-algos = [
+algos = historicals + [
     "greedyAndProject",
     "OverCover",
-] + historicals  # Clustering algorithm
+    "Chakraborty",
+]  # Clustering algorithm
 historicals.append("FFT")
 ks = ["10", "20", "50"]  # Number of clusters
 dataset = "Uber"
 
-colors_list = [
-    "#7f3b08",
-    "#542788",
-    "#000000",
-    "#7fbc41",
-]
 markers = [
-    "*",
     ".",
-    "x",
     "+",
+    "x",
+    5,
+    "d",
 ]
-colors_list = ["#1b9e77", "#7570b3", "#d95f02", "black", "#66a61e"]
+
+colors_list = [
+    "#1b9e77",
+    "#d95f02",
+    "#66a61e",
+    "black",
+    "#7570b3",
+]
+
+colors_list = [
+    "black",
+    "#984ea3",
+    "#e41a1c",
+    "#377eb8",
+    "#4daf4a",
+    "#542788",
+]
+markers = ["*", "d", "+", ".", "x", "*"]
+
 if not os.path.exists("plots"):
     os.makedirs("plots")
+nameDataset = dataset.title()
+
 for k in ks:
-    nameDataset = dataset.title()
-    if dataset == "Onlineretail":
-        nameDataset = "OnlineRetail"
-    dataset = f"setup3/{dataset}-{k}"
+    dataset = f"setup3/{nameDataset}-{k}"
     if not os.path.exists("plots/" + dataset):
         os.makedirs("plots/" + dataset)
     for hist in historicals:
@@ -47,7 +60,12 @@ for k in ks:
         plt.yticks(fontsize=fontsize)
 
         for algo in algos:
+            print(dataset)
             p = pd.read_csv(f"results/{dataset}/[{hist}]{algo}.csv", sep=",")
+            if algo == "Chakraborty":
+                algoName = "CFHLNS"
+            else:
+                algoName = algo
             bs = p["nbUpdates"] if algo in historicals else p["b"]
             scores = p["score"]
             if algo not in historicals:
@@ -55,7 +73,7 @@ for k in ks:
                     bs,
                     scores,
                     color=colors_list[i],
-                    label=f"{algo}",
+                    label=f"{algoName}",
                     marker=markers[i],
                 )
             else:
@@ -69,7 +87,7 @@ for k in ks:
                     color=colors_list[i],
                     label=f"{algoText}",
                     marker=markers[i],
-                    s=100,
+                    s=80,
                 )
             i += 1
         plt.suptitle(

@@ -2,33 +2,31 @@ import os
 import pandas as pd
 import matplotlib.pyplot as plt
 
-historicals = [
-    "Resilient",
-    "Carv",
-]  # Historical clustering algorithm
-algos = [
+historicals = ["Carv", "Resilient"]  # Historical clustering algorithm
+algos = historicals + [
     "greedyAndProject",
     "OverCover",
-] + historicals  # Clustering algorithm
+    "Chakraborty",
+]  # Clustering algorithm
 historicals.append("FFT")
-# datasets = ["Uber", "Electricity", "OnlineRetail", "Abalone", "Twitter"]  # Datasets
-datasets = ["Electricity", "OnlineRetail", "Abalone"]  # Datasets
+datasets = ["Electricity", "OnlineRetail", "Abalone", "Twitter", "Uber"]  # Datasets
+# datasets = ["Electricity", "OnlineRetail", "Abalone"]  # Datasets
 
 ks = ["10", "20", "50"]  # Number of clusters
 
+colors_list = ["#7f3b08", "#000000", "#7fbc41", "blue"]
+markers = ["*", ".", "x", "+", "d", "."]
+colors_list = ["#1b9e77", "#7570b3", "#d95f02", "black", "#66a61e", "blue"]
 colors_list = [
-    "#7f3b08",
+    "black",
+    "#984ea3",
+    "#e41a1c",
+    "#377eb8",
+    "#4daf4a",
     "#542788",
-    "#000000",
-    "#7fbc41",
 ]
-markers = [
-    "*",
-    ".",
-    "x",
-    "+",
-]
-colors_list = ["#1b9e77", "#7570b3", "#d95f02", "black", "#66a61e"]
+markers = ["*", "d", "+", ".", "x", "*"]
+
 if not os.path.exists("plots"):
     os.makedirs("plots")
 for k in ks:
@@ -51,6 +49,10 @@ for k in ks:
 
             for algo in algos:
                 p = pd.read_csv(f"results/{dataset}/[{hist}]{algo}.csv", sep=",")
+                if algo == "Chakraborty":
+                    algoName = "CFHLNS"
+                else:
+                    algoName = algo
                 bs = p["nbUpdates"] if algo in historicals else p["b"]
                 scores = p["score"]
                 if algo not in historicals:
@@ -58,7 +60,7 @@ for k in ks:
                         bs,
                         scores,
                         color=colors_list[i],
-                        label=f"{algo}",
+                        label=f"{algoName}",
                         marker=markers[i],
                     )
                 else:
@@ -92,12 +94,12 @@ for k in ks:
                     fontsize=fontsize,
                 )
             plt.savefig(
-                f"plots/{dataset}/{hist}.pdf",
+                f"plots/{dataset}/_1_{nameDataset}-{k}-{hist}.pdf",
                 bbox_inches="tight",
             )
             plt.legend(prop={"size": fontsize})
             plt.savefig(
-                f"plots/{dataset}/{hist}-legend.pdf",
+                f"plots/{dataset}/_1_{nameDataset}-{k}-{hist}-legend.pdf",
                 bbox_inches="tight",
             )
 

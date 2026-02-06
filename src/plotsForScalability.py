@@ -2,13 +2,15 @@ import os
 import pandas as pd
 import matplotlib.pyplot as plt
 
-algos = [
-    "OverCover",
-    "greedyAndProject",
-]  # Clustering algorithm
+algos = ["OverCover", "greedyAndProject", "Chakraborty"]  # Clustering algorithm
 baseline = "Carv"
 dataset = "Twitter"
-ks = ["5", "10", "20", "50"]  # Number of clusters
+ks = [
+    "5",
+    "10",
+    "20",
+    "50",
+]  # Number of clusters
 Bs = ["2", "4", "6"]
 colors_list = ["#7f3b08", "#542788", "#7fbc41", "#000000"]
 markers = ["+", "o", "x", "v"]
@@ -19,7 +21,14 @@ colors_list = [
     "#7fbc41",
 ]
 markers = ["+", "o", "x", "1"]
-
+colors_list = [
+    "#e41a1c",
+    "#377eb8",
+    "#4daf4a",
+    "#984ea3",
+    "#542788",
+]
+markers = ["+", ".", "x", "*", "d", "*"]
 
 if not os.path.exists("plots/scalability"):
     os.makedirs("plots/scalability")
@@ -46,6 +55,10 @@ for b in Bs:
                 f"results/scalability/{k}-{b}/[{baseline}]{algo}.csv",
                 sep=",",
             )
+            if algo == "Chakraborty":
+                algoName = "CFHLNS"
+            else:
+                algoName = algo
             time = list(p["time"])
             n = list(p["n"])
             time.pop()
@@ -54,7 +67,7 @@ for b in Bs:
                 n,
                 time,
                 color=colors_list[i],
-                label=f"{algo}, k={k}",
+                label=f"{algoName}, k={k}",
                 marker=markers[i],
             )
             i += 1

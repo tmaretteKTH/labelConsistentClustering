@@ -7,7 +7,7 @@ from algorithms.carv import *
 from algorithms.resilientkclustering import *
 from algorithms.greedyAndProject import *
 from algorithms.overCover import *
-from algorithms.Chakraborty import *
+from src.algorithms.CFHLNS import *
 import argparse
 from callAlgorithm import *
 
@@ -60,10 +60,11 @@ hist = args.historical
 k = args.k
 dataset = args.dataset
 algos = [
-    hist,
-    "greedyAndProject",
-    "OverCover",
-    "Chakraborty",
+    # hist,
+    # "greedyAndProject",
+    # "OverCover",
+    "CFHLNS",
+    #  "Carv",
 ]  # Algorithms to run
 timesteps = 20
 

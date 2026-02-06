@@ -7,7 +7,7 @@ from algorithms.carv import *
 from algorithms.resilientkclustering import *
 from algorithms.greedyAndProject import *
 from algorithms.overCover import *
-from algorithms.Chakraborty import *
+from src.algorithms.CFHLNS import *
 import argparse
 from callAlgorithm import *
 
@@ -75,11 +75,11 @@ seed = 2026
 epsilon = 0.25  # rStar step
 bepsilon = 1.33  # budget step
 algos = [
-    "Chakraborty",
-    "Resilient",
-    "Carv",
-    "OverCover",
-    "greedyAndProject",
+    "CFHLNS",
+    # "Resilient",
+    # "Carv",
+    # "OverCover",
+    # "greedyAndProject",
 ]  # Algorithms to run
 args = parser.parse_args()
 hist = args.historical
