@@ -24,7 +24,7 @@ parser.add_argument("k", type=int, help="Number of centers opened")
 
 def scoreUpdatesCurve(points, k, histCluster, histClusterName, clusterAlgo, seed):
     hC, lh = histCluster
-    ourAlgos = ["greedyAndProject", "OverCover", "Carv", "Chakraborty"]
+    ourAlgos = ["greedyAndProject", "OverCover", "Carv", "CFHLNS"]
     clusterCenters, clusterAssign = [], []
     n = len(points)
     b = int(n / 200)

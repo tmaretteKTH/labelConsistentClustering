@@ -29,7 +29,7 @@ parser.add_argument("k", type=int, help="Number of centers opened")
 
 
 def computeClustering(points, k, Bs, epsilon, hC, lC, clusterAlgo, seed):
-    ourAlgos = ["greedyAndProject", "OverCover", "Chakraborty", "Carv"]
+    ourAlgos = ["greedyAndProject", "OverCover", "CFHLNS", "Carv"]
     clusterCenters, clusterAssign = [], []
     rMin = clusteringScore(points, FFT(points, k)) / 3
     rMax = clusteringScore(points, hC, lC) * 3
