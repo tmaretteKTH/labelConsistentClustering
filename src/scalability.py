@@ -61,7 +61,7 @@ def findBestRstarAndClustering(points, k, Bs, rStars, hC, lC, clusterAlgo, seed)
 def computeClustering(points, k, Bs, epsilon, hC, lC, clusterAlgo, seed):
     ourAlgos = ["greedyAndProject", "OverCover", "CFHLNS"]
     clusterCenters, clusterAssign = [], []
-    rMin = clusteringScore(points, FFT(points, k)) / 3
+    rMin = clusteringScore(points, FFT(points, k)) / 10
     rMax = clusteringScore(points, hC, lC) * 3
     rStars = [rMin]  # all candidates rStar
     while rStars[-1] < rMax:

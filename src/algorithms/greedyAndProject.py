@@ -10,9 +10,17 @@ def greedyAndProject(
     if len(S) > k:
         return historicalClusterCenters, historicalClusterAssign
     alpha = {}
-    histAssignWithIndex = [historicalClusterCenters[i] for i in historicalClusterAssign]
+    # histAssignWithIndex = [historicalClusterCenters[i] for i in historicalClusterAssign]
     for c in historicalClusterCenters:
-        alpha[c] = np.sum(np.array(histAssignWithIndex) == c)
+        alpha[c] = 0
+
+    for x in np.arange(len(points)):
+        if (
+            dist(points, historicalClusterCenters[historicalClusterAssign[x]], x)
+            <= rStar
+        ):
+            alpha[historicalClusterCenters[historicalClusterAssign[x]]] += 1
+            # alpha[c] = np.sum(np.array(histAssignWithIndex) == c)
     C0 = []
     for s in S:
         # get all hist centers at distance less than rStar

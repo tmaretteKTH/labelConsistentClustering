@@ -3,15 +3,19 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 historicals = [
-    "Carv",
+    #   "Carv",
     "Resilient",
 ]  # Historical clustering algorithm
-algos = historicals + [
-    "greedyAndProject",
-    "OverCover",
-    "Chakraborty",
-]  # Clustering algorithm
-historicals.append("FFT")
+algos = (
+    ["Carv"]
+    + historicals
+    + [
+        "greedyAndProject",
+        "OverCover",
+        "CFHLNS",
+    ]
+)  # Clustering algorithm
+# historicals.append("FFT")
 ks = ["10", "20", "50"]  # Number of clusters
 dataset = "Uber"
 

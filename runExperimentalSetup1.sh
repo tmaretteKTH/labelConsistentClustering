@@ -1,7 +1,7 @@
 #!/bin/bash
-declare -a historicals=("Resilient" "Carv" "FFT")
+declare -a historicals=("Carv" "Resilient" "Carv" "FFT")
 #declare -a historicals=("Resilient")
-declare -a datasets=("Abalone" "Abalone" "OnlineRetail")
+declare -a datasets=("OnlineRetail" "Abalone" "OnlineRetail")
 #declare -a datasets=("OnlineRetail")
 # "OnlineRetail" "Electricity")
 declare -a ks=(10 20 50)

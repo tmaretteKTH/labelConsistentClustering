@@ -108,7 +108,7 @@ for k in ks:
                     )
 
                     p = pd.read_csv(
-                        f"results/setup2/{dataset}/{k}-{b}/[Resilient]Chakraborty.csv",
+                        f"results/setup2/{dataset}/{k}-{b}/[Resilient]CFHLNS.csv",
                         sep=",",
                     )
                     X, Y = p["t"], p[metric]

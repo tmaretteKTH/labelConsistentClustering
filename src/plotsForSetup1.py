@@ -6,10 +6,10 @@ historicals = ["Carv", "Resilient"]  # Historical clustering algorithm
 algos = historicals + [
     "greedyAndProject",
     "OverCover",
-    "Chakraborty",
+    "CFHLNS",
 ]  # Clustering algorithm
 historicals.append("FFT")
-datasets = ["Electricity", "OnlineRetail", "Abalone", "Twitter", "Uber"]  # Datasets
+datasets = ["OnlineRetail", "Abalone", "Twitter", "Uber", "Electricity"]  # Datasets
 # datasets = ["Electricity", "OnlineRetail", "Abalone"]  # Datasets
 
 ks = ["10", "20", "50"]  # Number of clusters
@@ -49,10 +49,7 @@ for k in ks:
 
             for algo in algos:
                 p = pd.read_csv(f"results/{dataset}/[{hist}]{algo}.csv", sep=",")
-                if algo == "Chakraborty":
-                    algoName = "CFHLNS"
-                else:
-                    algoName = algo
+                algoName = algo
                 bs = p["nbUpdates"] if algo in historicals else p["b"]
                 scores = p["score"]
                 if algo not in historicals:

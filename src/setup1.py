@@ -43,8 +43,8 @@ def scoreUpdatesCurve(points, k, histCluster, histClusterName, clusterAlgo, seed
     f.write("b,score,k,nbUpdates\n")
     f.close()
     bestScore = clusteringScore(points, hC, lh)
-    rMin = clusteringScore(points, FFT(points, k)) / 3
-    rMax = historicalScore * 2
+    rMin = clusteringScore(points, FFT(points, k)) / 10
+    rMax = historicalScore
     rStars = [rMin]  # all candidates rStar
     while rStars[-1] < rMax:
         rStars.append(rStars[-1] * (1 + epsilon))
@@ -82,8 +82,8 @@ seed = 2026
 epsilon = 0.25  # rStar step
 bepsilon = 1.33  # budget step
 algos = [
-    "CFHLNS",
-    # "greedyAndProject",
+    # "CFHLNS",
+    "greedyAndProject",
     # "Resilient",
     # "Carv",
     # "OverCover",

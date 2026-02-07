@@ -13,6 +13,8 @@ def updateCovered(points, covered, newCenter, rStar, realIndex):
 
 
 def Carvrstar(points, rStar, k, seed, realIndex=[]):
+    # cover dataset with k balls of radius 2r^*
+    # returns k+1 centers if fails
     rng = np.random.RandomState(seed)
     # k is given as an upper bound, so that we stop the search if we need k+1 centers to cover our dataset
     if list(realIndex) == []:
@@ -25,7 +27,7 @@ def Carvrstar(points, rStar, k, seed, realIndex=[]):
     covered[newClusterCenter] = True
     clusterCenters = [realIndex[newClusterCenter]]
     covered = updateCovered(points, covered, newClusterCenter, rStar, realIndex)
-    while sum(covered) < n and len(clusterCenters) < k:
+    while sum(covered) < n and len(clusterCenters) <= k:
         newClusterCenter = rng.choice(np.where(covered == False)[0])
         clusterCenters.append(realIndex[newClusterCenter])
         updateCovered(points, covered, newClusterCenter, rStar, realIndex)

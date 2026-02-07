@@ -2,7 +2,7 @@ import os
 import pandas as pd
 import matplotlib.pyplot as plt
 
-algos = ["OverCover", "greedyAndProject", "Chakraborty"]  # Clustering algorithm
+algos = ["OverCover", "greedyAndProject", "CFHLNS"]  # Clustering algorithm
 baseline = "Carv"
 dataset = "Twitter"
 ks = [
